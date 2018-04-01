@@ -26,8 +26,11 @@ var init = () =>{
 		 	throwSpeed: 60,
 		 	keys: {keyW: 0, keyS: 0, keyA: 0, keyD: 0, keyLt: 0, keyUp: 0, keyRt: 0, keyDn: 0, TouchF: 0},
 		 	babies: [],
+		 	Gods: [],
 		 	babySpeed: 1.5,
-		 	lastDown: (new Date()).getTime()
+		 	lastDown: (new Date()).getTime(),
+		 	lastGod: (new Date()).getTime(),
+		 	GodGenTime: 3
 		 	};
   
     canvas.addEventListener('contextmenu', function(e){e.preventDefault();});
@@ -194,6 +197,8 @@ const Ticking = e =>{
   	walking();
   	solarAtr();
   	babiesChasing();
+  	GodGen();
+  	checkGod();
   	if(game.throw)throwing();
 }
 
@@ -225,21 +230,17 @@ const solarAtr = ( p = exportRoot.Fool, s = exportRoot.solar ) =>{
 	if(R>0.01)throwOut();
 }
 
-const throwOut = (s = exportRoot.solar) =>{
-	s.solar1.gotoAndStop(1);
-	s.solar2.gotoAndStop(1);
-	s.eye.gotoAndStop(1);
+const throwOut = () =>{
+	solarStatus(1);
 	game.throw = true;
 }
 
-const throwing = ( p = exportRoot.Fool, s = exportRoot.solar ) =>{
+const throwing = ( p = exportRoot.Fool ) =>{
 	p.x -= game.throwSpeed;
 	if(p.x<0){
 		game.throw = !1;
 		exportRoot.moon.visible = !0;
-		s.solar1.gotoAndStop(0);
-		s.solar2.gotoAndStop(0);
-		s.eye.gotoAndStop(0);
+		solarStatus(0);
 		MoonBabyGen();
 	}
 }
@@ -251,6 +252,44 @@ const MoonBabyGen = ( r = exportRoot, g = game ) =>{
 	b.y = window.innerHeight;
 	b.scaleX = b.scaleY = 0.5;
 	r.addChild(b);
+}
+
+const GodGen = ( g = game ) =>{
+	let now = (new Date()).getTime();
+	if(now - g.lastGod >= game.GodGenTime*1000){
+		g.lastGod = now;
+		let ng = new lib.God();
+		game.Gods.push(ng);
+		ng.x = Math.random()*window.innerWidth;
+		ng.y = Math.random()*window.innerHeight;
+		exportRoot.addChild(ng);
+	}
+}
+
+const checkGod = ( g = game.Gods, p = exportRoot.Fool ) =>{
+	for(let i=0;i<g.length;i++){
+		if(g[i].currentLabel=='stand'){
+			let X = g[i].x - p.x,
+			Y = p.y - g[i].y,
+			R = Math.sqrt( X*X + Y*Y ),
+			d;
+		
+			if( R<200 && p.hand1.currentLabel=='swish'){
+				//log( p.rotation - Math.atan2( X, Y )*180/Math.PI );
+				d = p.rotation - Math.atan2( X, Y )*180/Math.PI;
+				if( d<-270 || ( d>0 && d<90 ) )g[i].play();
+			}
+			if( R<200 && p.hand2.currentLabel=='swish'){
+				//log( p.rotation - Math.atan2( X, Y )*180/Math.PI );
+				d = Math.atan2( X, Y )*180/Math.PI - p.rotation;
+				if( d<-270 || ( d>0 && d<90 ) )g[i].play();
+			}
+		}else if(g[i].currentLabel=='dead'){
+			exportRoot.removeChild(g[i]);
+			g.splice(i,1);
+		}
+		
+	}
 }
 
 const babiesChasing = ( p = exportRoot.Fool, bs = game.babies, s = game.babySpeed ) =>{
@@ -276,6 +315,13 @@ const killed = ( p = exportRoot.Fool ) =>{
 	exportRoot.empty.addChild(c);
 	p.x = p.y = 0;
 	game.throw = !1;
+	solarStatus(0);
+}
+
+const solarStatus = ( f=0, s=exportRoot.solar ) =>{
+	s.solar1.gotoAndStop(f);
+	s.solar2.gotoAndStop(f);
+	s.eye.gotoAndStop(f);
 }
 
 const resizeCanvas = e =>{
