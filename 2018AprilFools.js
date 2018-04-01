@@ -42,7 +42,7 @@ var menuClick = e=>{
 	this.addChild(this.Fool = new lib.Fool());
 	this.Fool.parent = this;
 	this.Fool.setTransform(250,250);
-  	this.Fool.keyW = this.Fool.keyS = this.Fool.keyA = this.Fool.keyD = 0;
+  	this.Fool.keyW = this.Fool.keyS = this.Fool.keyA = this.Fool.keyD = this.Fool.keyLt = this.Fool.keyUp = this.Fool.keyRt = this.Fool.keyDn = 0;
 
 }).prototype = new createjs.MovieClip();
 
@@ -159,16 +159,28 @@ const facing = () =>{
 
 var keyDown = e =>{
     switch( e.keyCode ){
+    	case 37:
+			exportRoot.Fool.keyLt = -2;
+			break;
+    	case 38:
+			exportRoot.Fool.keyUp = 2;
+			break;
+    	case 39:
+			exportRoot.Fool.keyRt = 2;
+			break;
+    	case 40:
+			exportRoot.Fool.keyDn = -2;
+			break;
 		case 87:
 			exportRoot.Fool.keyW = 2;
 			break;
-    case 83:
+    	case 83:
 			exportRoot.Fool.keyS = -2;
 			break;
-    case 65:
+    	case 65:
 			exportRoot.Fool.keyA = -2;
 			break;
-    case 68:
+    	case 68:
 			exportRoot.Fool.keyD = 2;
 			break;
 		default:
@@ -178,16 +190,28 @@ var keyDown = e =>{
 
 var keyUp = e =>{
     switch( e.keyCode ){
+    	case 37:
+			exportRoot.Fool.keyLt = 0;
+			break;
+    	case 38:
+			exportRoot.Fool.keyUp = 0;
+			break;
+    	case 39:
+			exportRoot.Fool.keyRt = 0;
+			break;
+    	case 40:
+			exportRoot.Fool.keyDn = 0;
+			break;
 		case 87:
 			exportRoot.Fool.keyW = 0;
 			break;
-    case 83:
+    	case 83:
 			exportRoot.Fool.keyS = 0;
 			break;
-    case 65:
+    	case 65:
 			exportRoot.Fool.keyA = 0;
 			break;
-    case 68:
+    	case 68:
 			exportRoot.Fool.keyD = 0;
 			break;
 		default:
@@ -196,20 +220,21 @@ var keyUp = e =>{
 }
 
 const walking = e =>{
-  	let Fspeed = exportRoot.Fool.keyW + exportRoot.Fool.keyS,
-      	Rspeed = exportRoot.Fool.keyA + exportRoot.Fool.keyD,
-      	R = exportRoot.Fool.rotation*Math.PI/180;
+  	let p = exportRoot.Fool,
+  		Fspeed = ( p.keyW || p.keyUp ) + ( p.keyS || p.keyDn ),
+      	Rspeed = ( p.keyA || p.keyLt ) + ( p.keyD || p.keyRt),
+      	R = p.rotation*Math.PI/180;
   	if(Fspeed || Rspeed){
     	if(Fspeed && Rspeed){
       		Fspeed /= Math.sqrt(2);
       		Rspeed /= Math.sqrt(2);
     	}
-	    exportRoot.Fool.x += Fspeed*Math.sin(R) + Rspeed*Math.sin(R + Math.PI/2);
-	    exportRoot.Fool.y -= Fspeed*Math.cos(R) + Rspeed*Math.cos(R + Math.PI/2);
-	    exportRoot.Fool.play();
+	    p.x += Fspeed*Math.sin(R) + Rspeed*Math.sin(R + Math.PI/2);
+	    p.y -= Fspeed*Math.cos(R) + Rspeed*Math.cos(R + Math.PI/2);
+	    p.play();
 	    facing();
   	}else{
-    	exportRoot.Fool.stop();
+    	p.stop();
   	}
 }
 
