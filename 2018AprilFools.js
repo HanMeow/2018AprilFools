@@ -261,7 +261,6 @@ const LehmFiring = ( p = exportRoot.Fool, l = exportRoot.Lehm ) =>{
 		if( ( R<180 && R>0 ) || R<-180  )l.LehmGun.rotation-=0.5;
 		else l.LehmGun.rotation+=0.5;
 		if( Math.abs(R)<HitR || Math.abs(R)>(360-HitR) )killed();
-		log(HitR);
 	}else{
 		l.LehmGun.gun_fire.visible = !1;
 	}
