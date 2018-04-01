@@ -39,6 +39,7 @@ var init = () =>{
 
 	exportRoot.Lehm.x = window.innerWidth;
 	exportRoot.Lehm.y = window.innerHeight;
+	exportRoot.Lehm.LehmHead.cache(-45,-65,90,130);
 
 	checkData();
 
@@ -295,6 +296,7 @@ const MoonBabyGen = ( r = exportRoot, g = game ) =>{
 	b.y = window.innerHeight;
 	b.scaleX = b.scaleY = 0.5;
 	r.addChild(b);
+	b.cache(-110,-110,220,220);
 }
 
 const GodGen = ( g = game ) =>{

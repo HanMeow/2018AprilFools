@@ -320,6 +320,7 @@
 	// timeline functions:
 	this.frame_14 = function() {
 		this.stop();
+		this.cache(-105,-105,210,210);
 	}
 
 	// actions tween:
