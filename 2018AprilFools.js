@@ -190,7 +190,7 @@ const walking = ( p = exportRoot.Fool, k = game.keys ) =>{
 const solarAtr = ( p = exportRoot.Fool, s = exportRoot.solar ) =>{
 	let X = s.x - p.x,
 		Y = s.y - p.y,
-		R = game.solarAtr/Math.sqrt( X*X + X*Y );
+		R = game.solarAtr/Math.sqrt( X*X + Y*Y );
 	p.x += R*X;
 	p.y += R*Y;
 	if(R>0.01)throwOut();
