@@ -1,6 +1,9 @@
 (lib.root = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
+	this.addChild(this.empty = new cjs.MovieClip());
+	this.empty.parent = this;
+
 	this.addChild(this.Fool = new lib.Fool());
 	this.Fool.parent = this;
 	this.Fool.setTransform(250,250);
@@ -224,5 +227,70 @@
 	this.shape_3.graphics.f("#FFCC99").s().p("ArCLDQklklAAmeQAAmdElklQElklGdAAQFyAAERDpQheghhtAAQj5AAiwCvQiuCwAAD5QAAD3CuCwQCwCwD5AAQD4AACwiwQBchcAshvQgHGQkeEeQkkElmfAAQmdAAklklg");
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_3},{t:this.shape_2}]}).wait(1));
+
+}).prototype = new cjs.MovieClip();
+
+(lib.blood = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// 圖層_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#990000").s().p("ADTFWQgLgDgYgOQgWgNgOgDQgXgGgwAMQgrALgZgCQgogDgVgaIgLgPQgHgIgHgDQgNgGgTANQgcATgEACQgSAGgVgKQgSgJgNgSQgIgNgLgYQgMgagGgLQgVAKgagMQgXgLgPgWQgRgaABgfQACghAXgPQgOgFgtgBQglgBgRgOQgRgNgCgWQgCgXAMgRQAMgSAVgHQAVgHAWAEQgOgWALgbQALgcAZgHQgHgVAFgVQAFgXARgKQAPgJAUACQARABASAKQALAGATAPQAUAOAKAGQARAKASACQAUADAPgJQgSgXAGggQAGggAagOQAagPAeALQAfALALAbQAIhNAngQQATgIAnAGQApAGAQAJQAXANALAZQAMAZgFAaQAMgMAQgFQARgGAQACQARACANALQAOAKAFAQQAJAZgOAeQgLAVgYAbQASABAPAMQAPANAEASQAggFATAGQANAFAJAJQAKAKABANQABALgHAMQgHAKgMAFQgNAJgiAFQAOAIAWAFIAnAHQAWAFAPAKQATAMAEARQAEAUgOATQgOASgVAGQgSAFgYgDQgOgBgbgHQAgAQALAMQAKAJAEAMQAFANgCAMQgDAPgOALQgNAJgQACQgVADgpgLQAOAQAAAXQAAAXgOARQgNARgWAGQgLADgKAAQgLAAgLgEg");
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = new cjs.MovieClip();
+
+(lib.corpse = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// timeline functions:
+	this.frame_14 = function() {
+		this.stop();
+	}
+
+	// actions tween:
+	this.timeline.addTween(cjs.Tween.get(this).wait(14).call(this.frame_14).wait(1));
+
+	// head
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#333333").s().p("AlhFhQiSiSAAjPQAAjOCSiTQCTiSDOAAQDPAACTCSQCSCTAADOQAADPiSCSQiTCTjPAAQjOAAiTiTg");
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(15));
+
+	// hand1
+	this.instance = new lib.hand();
+	this.instance.parent = this;
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1).to({regX:25,rotation:-3,x:26.7,y:-1.3},0).wait(1).to({rotation:-6,x:28.4,y:-2.6},0).wait(1).to({rotation:-9,x:30.1,y:-3.9},0).wait(1).to({rotation:-12,x:31.6,y:-5.2},0).wait(1).to({rotation:-15,x:33.1,y:-6.4},0).wait(1).to({rotation:-18,x:34.5,y:-7.7},0).wait(1).to({rotation:-21,x:35.9,y:-8.9},0).wait(1).to({rotation:-24,x:37.1,y:-10.1},0).wait(1).to({rotation:-27,x:38.4,y:-11.3},0).wait(1).to({rotation:-30,x:39.5,y:-12.5},0).wait(1).to({rotation:-33,x:40.6,y:-13.6},0).wait(1).to({rotation:-36,x:41.7,y:-14.7},0).wait(1).to({rotation:-38.9,x:42.7,y:-15.7},0).wait(1).to({rotation:-41.9,x:43.6,y:-16.7},0).wait(1));
+
+	// hand2
+	this.instance_1 = new lib.hand();
+	this.instance_1.parent = this;
+	this.instance_1.setTransform(0,0,1,1,180);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1).to({regX:25,rotation:181.1,x:-27.5,y:-0.4},0).wait(1).to({rotation:182.1,x:-30,y:-0.9},0).wait(1).to({rotation:183.2,x:-32.4,y:-1.4},0).wait(1).to({rotation:184.3,x:-34.9,y:-1.8},0).wait(1).to({rotation:185.4,x:-37.4,y:-2.3},0).wait(1).to({rotation:186.4,x:-39.8,y:-2.8},0).wait(1).to({rotation:187.5,x:-42.3,y:-3.2},0).wait(1).to({rotation:188.6,x:-44.7,y:-3.7},0).wait(1).to({rotation:189.6,x:-47.1,y:-4.2},0).wait(1).to({rotation:190.7,x:-49.5,y:-4.6},0).wait(1).to({rotation:191.8,x:-51.9,y:-5.1},0).wait(1).to({rotation:192.9,x:-54.3,y:-5.5},0).wait(1).to({rotation:193.9,x:-56.7,y:-6},0).wait(1).to({rotation:195,x:-59.1,y:-6.4},0).wait(1));
+
+	// foot1
+	this.instance_2 = new lib.feet();
+	this.instance_2.parent = this;
+	this.instance_2.setTransform(-21,-0.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1).to({rotation:0.5,x:-21.4,y:2.5},0).wait(1).to({rotation:1,x:-21.7,y:5.7},0).wait(1).to({rotation:1.5,x:-22.1,y:8.9},0).wait(1).to({rotation:2.1,x:-22.4,y:12.2},0).wait(1).to({rotation:2.6,x:-22.8,y:15.4},0).wait(1).to({rotation:3.1,x:-23.1,y:18.6},0).wait(1).to({rotation:3.6,x:-23.5,y:21.8},0).wait(1).to({rotation:4.1,x:-23.9,y:25},0).wait(1).to({rotation:4.6,x:-24.2,y:28.2},0).wait(1).to({rotation:5.2,x:-24.6,y:31.4},0).wait(1).to({rotation:5.7,x:-24.9,y:34.7},0).wait(1).to({rotation:6.2,x:-25.3,y:37.9},0).wait(1).to({rotation:6.7,x:-25.6,y:41.1},0).wait(1).to({rotation:7.2,x:-26,y:44.3},0).wait(1));
+
+	// foot2
+	this.instance_3 = new lib.feet();
+	this.instance_3.parent = this;
+	this.instance_3.setTransform(21,-0.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_3).wait(1).to({rotation:-1.4,x:21.7,y:1.8},0).wait(1).to({rotation:-2.9,x:22.4,y:4.3},0).wait(1).to({rotation:-4.3,x:23.1,y:6.8},0).wait(1).to({rotation:-5.7,x:23.9,y:9.3},0).wait(1).to({rotation:-7.1,x:24.6,y:11.8},0).wait(1).to({rotation:-8.6,x:25.3,y:14.3},0).wait(1).to({rotation:-10,x:26,y:16.8},0).wait(1).to({rotation:-11.4,x:26.7,y:19.3},0).wait(1).to({rotation:-12.8,x:27.4,y:21.8},0).wait(1).to({rotation:-14.3,x:28.1,y:24.3},0).wait(1).to({rotation:-15.7,x:28.9,y:26.8},0).wait(1).to({rotation:-17.1,x:29.6,y:29.3},0).wait(1).to({rotation:-18.5,x:30.3,y:31.8},0).wait(1).to({rotation:-20,x:31,y:34.3},0).wait(1));
+
+	// blood
+	this.blood = new lib.blood();
+	this.blood.name = "blood";
+	this.blood.parent = this;
+	this.blood.setTransform(-3.7,2.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.blood).wait(1).to({scaleX:1.06,scaleY:1.06},0).wait(1).to({scaleX:1.13,scaleY:1.13},0).wait(1).to({scaleX:1.19,scaleY:1.19},0).wait(1).to({scaleX:1.25,scaleY:1.25},0).wait(1).to({scaleX:1.32,scaleY:1.32},0).wait(1).to({scaleX:1.38,scaleY:1.38},0).wait(1).to({scaleX:1.45,scaleY:1.45},0).wait(1).to({scaleX:1.51,scaleY:1.51},0).wait(1).to({scaleX:1.57,scaleY:1.57},0).wait(1).to({scaleX:1.64,scaleY:1.64},0).wait(1).to({scaleX:1.7,scaleY:1.7},0).wait(1).to({scaleX:1.77,scaleY:1.77},0).wait(1).to({scaleX:1.83,scaleY:1.83},0).wait(1).to({scaleX:1.89,scaleY:1.89},0).wait(1));
 
 }).prototype = new cjs.MovieClip();

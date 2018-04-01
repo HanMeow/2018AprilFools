@@ -20,10 +20,13 @@ var init = () =>{
 	resizeCanvas();
 
 	game = {target: { x: 250 ,y: 0 },
+			foolSpeed: 2,
 			solarAtr: 1,
 		 	throw: false,
 		 	throwSpeed: 60,
-		 	keys: {keyW: 0, keyS: 0, keyA: 0, keyD: 0, keyLt: 0, keyUp: 0, keyRt: 0, keyDn: 0, TouchF: 0}
+		 	keys: {keyW: 0, keyS: 0, keyA: 0, keyD: 0, keyLt: 0, keyUp: 0, keyRt: 0, keyDn: 0, TouchF: 0},
+		 	babies: [],
+		 	babySpeed: 1.5
 		 	};
   
     canvas.addEventListener('contextmenu', function(e){e.preventDefault();});
@@ -86,7 +89,7 @@ const TouchMove = e =>{
 	e.preventDefault();
 	game.target.x = e.changedTouches["0"].clientX;
 	game.target.y = e.changedTouches["0"].clientY;
-	game.keys.TouchF = 2;
+	game.keys.TouchF = game.foolSpeed;
 }
 
 const TouchEnd = e =>{
@@ -102,30 +105,31 @@ const facing = () =>{
 }
 
 var keyDown = e =>{
+	let s = game.foolSpeed;
     switch( e.keyCode ){
     	case 37:
-			game.keys.keyLt = -2;
+			game.keys.keyLt = -s;
 			break;
     	case 38:
-			game.keys.keyUp = 2;
+			game.keys.keyUp = s;
 			break;
     	case 39:
-			game.keys.keyRt = 2;
+			game.keys.keyRt = s;
 			break;
     	case 40:
-			game.keys.keyDn = -2;
+			game.keys.keyDn = -s;
 			break;
 		case 87:
-			game.keys.keyW = 2;
+			game.keys.keyW = s;
 			break;
     	case 83:
-			game.keys.keyS = -2;
+			game.keys.keyS = -s;
 			break;
     	case 65:
-			game.keys.keyA = -2;
+			game.keys.keyA = -s;
 			break;
     	case 68:
-			game.keys.keyD = 2;
+			game.keys.keyD = s;
 			break;
 		default:
 			break;
@@ -166,6 +170,7 @@ var keyUp = e =>{
 const Ticking = e =>{
   	walking();
   	solarAtr();
+  	babiesChasing();
   	if(game.throw)throwing();
 }
 
@@ -211,7 +216,41 @@ const throwing = ( p = exportRoot.Fool, s = exportRoot.solar ) =>{
 		s.solar1.gotoAndStop(0);
 		s.solar2.gotoAndStop(0);
 		s.eye.gotoAndStop(0);
+		MoonBabyGen();
 	}
+}
+
+const MoonBabyGen = ( r = exportRoot, g = game ) =>{
+	let b = new lib.moon();
+	g.babies.push(b);
+	b.x = 0;
+	b.y = window.innerWidth;
+	b.scaleX = b.scaleY = 0.5;
+	r.addChild(b);
+}
+
+const babiesChasing = ( p = exportRoot.Fool, bs = game.babies, s = game.babySpeed ) =>{
+	for(let i=0;i<bs.length;i++){
+		let X = p.x - bs[i].x,
+			Y = p.y - bs[i].y,
+			R = s/Math.sqrt( X*X + Y*Y );
+		bs[i].x += R*X;
+		bs[i].y += R*Y;
+		if(R>0.03){
+			bs[i].x = window.innerWidth;
+			bs[i].y = window.innerHeight;
+			killed();
+		}
+	}
+}
+
+const killed = ( p = exportRoot.Fool ) =>{
+	let c = new lib.corpse();
+	c.x = p.x;
+	c.y = p.y;
+	c.rotation = p.rotation;
+	exportRoot.empty.addChild(c);
+	p.x = p.y = 0;
 }
 
 const resizeCanvas = e =>{
