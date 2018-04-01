@@ -97,7 +97,7 @@ const TouchMove = e =>{
 	game.target.x = e.changedTouches["0"].clientX;
 	game.target.y = e.changedTouches["0"].clientY;
 	game.keys.TouchF = game.foolSpeed;
-	game.lastDown = (new Date()).getTime();
+	//game.lastDown = (new Date()).getTime();
 }
 
 const TouchEnd = e =>{
@@ -262,6 +262,7 @@ const GodGen = ( g = game ) =>{
 		game.Gods.push(ng);
 		ng.x = Math.random()*window.innerWidth;
 		ng.y = Math.random()*window.innerHeight;
+		ng.cache(-60,-60,120,120);
 		exportRoot.addChild(ng);
 	}
 }
@@ -277,12 +278,18 @@ const checkGod = ( g = game.Gods, p = exportRoot.Fool ) =>{
 			if( R<200 && p.hand1.currentLabel=='swish'){
 				//log( p.rotation - Math.atan2( X, Y )*180/Math.PI );
 				d = p.rotation - Math.atan2( X, Y )*180/Math.PI;
-				if( d<-270 || ( d>0 && d<90 ) )g[i].play();
+				if( d<-270 || ( d>0 && d<90 ) ){
+					g[i].uncache();
+					g[i].play();
+				}
 			}
 			if( R<200 && p.hand2.currentLabel=='swish'){
 				//log( p.rotation - Math.atan2( X, Y )*180/Math.PI );
 				d = Math.atan2( X, Y )*180/Math.PI - p.rotation;
-				if( d<-270 || ( d>0 && d<90 ) )g[i].play();
+				if( d<-270 || ( d>0 && d<90 ) ){
+					g[i].uncache();
+					g[i].play();
+				}
 			}
 		}else if(g[i].currentLabel=='dead'){
 			exportRoot.removeChild(g[i]);
