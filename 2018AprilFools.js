@@ -17,6 +17,8 @@ var init = () =>{
   
     window.addEventListener('resize', resizeCanvas);
 	resizeCanvas();
+
+	game = { target: { x: 250 ,y: 0 } };
   
     canvas.addEventListener('contextmenu', function(e){e.preventDefault();});
   
@@ -143,10 +145,15 @@ var MouseUp = e =>{
 }
 
 var MouseMove = e =>{
-    //log(e);
-  let X = e.clientX - exportRoot.Fool.x,
-      Y = exportRoot.Fool.y - e.clientY,
-      R = Math.atan2( X, Y )*180/Math.PI;
+    game.target.x = e.clientX;
+    game.target.y = e.clientY;
+  	facing();
+}
+
+const facing = () =>{
+	let X = game.target.x - exportRoot.Fool.x,
+      	Y = exportRoot.Fool.y - game.target.y,
+      	R = Math.atan2( X, Y )*180/Math.PI;
     exportRoot.Fool.rotation = R;
 }
 
@@ -189,20 +196,21 @@ var keyUp = e =>{
 }
 
 const walking = e =>{
-  let Fspeed = exportRoot.Fool.keyW + exportRoot.Fool.keyS,
-      Rspeed = exportRoot.Fool.keyA + exportRoot.Fool.keyD,
-      R = exportRoot.Fool.rotation*Math.PI/180;
-  if(Fspeed || Rspeed){
-    if(Fspeed && Rspeed){
-      Fspeed /= Math.sqrt(2);
-      Rspeed /= Math.sqrt(2);
-    }
-    exportRoot.Fool.x += Fspeed*Math.sin(R) + Rspeed*Math.sin(R + Math.PI/2);
-    exportRoot.Fool.y -= Fspeed*Math.cos(R) + Rspeed*Math.cos(R + Math.PI/2);
-    exportRoot.Fool.play();
-  }else{
-    exportRoot.Fool.stop();
-  }
+  	let Fspeed = exportRoot.Fool.keyW + exportRoot.Fool.keyS,
+      	Rspeed = exportRoot.Fool.keyA + exportRoot.Fool.keyD,
+      	R = exportRoot.Fool.rotation*Math.PI/180;
+  	if(Fspeed || Rspeed){
+    	if(Fspeed && Rspeed){
+      		Fspeed /= Math.sqrt(2);
+      		Rspeed /= Math.sqrt(2);
+    	}
+	    exportRoot.Fool.x += Fspeed*Math.sin(R) + Rspeed*Math.sin(R + Math.PI/2);
+	    exportRoot.Fool.y -= Fspeed*Math.cos(R) + Rspeed*Math.cos(R + Math.PI/2);
+	    exportRoot.Fool.play();
+	    facing();
+  	}else{
+    	exportRoot.Fool.stop();
+  	}
 }
 
 const resizeCanvas = e =>{
