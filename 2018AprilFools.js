@@ -37,8 +37,8 @@ var init = () =>{
 		 	GodDestroyNum: 0
 		 	};
 
-	exportRoot.Lehm.x = window.innerWidth;
-	exportRoot.Lehm.y = window.innerHeight;
+	exportRoot.Lehm.x = window.innerWidth/2;
+	exportRoot.Lehm.y = window.innerHeight/2;
 	exportRoot.Lehm.LehmHead.cache(-45,-65,90,130);
 
 	checkData();
