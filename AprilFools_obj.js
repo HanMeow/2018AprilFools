@@ -56,7 +56,7 @@
 	this.instance.parent = this;
 	this.instance.setTransform(0.3,0.5);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1).to({regX:24.7,x:25},0).wait(1).to({rotation:19.2,x:31.1,y:12.4},0).wait(1).to({rotation:38.4,x:34.7,y:23.4},0).wait(1).to({rotation:57.6,x:36,y:32.6},0).wait(1).to({rotation:76.8,x:35.9,y:39.6},0).wait(1).to({rotation:57.6,x:36,y:32.6},0).wait(1).to({rotation:38.4,x:34.7,y:23.4},0).wait(1).to({rotation:19.2,x:31.1,y:12.4},0).wait(1).to({rotation:0,x:25,y:0.5},0).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1).to({regX:24.7,x:25},0).wait(1).to({rotation:19.2,x:27.4,y:14.9},0).wait(1).to({rotation:38.4,x:27.2,y:28.4},0).wait(1).to({rotation:57.6,x:24.8,y:40.1},0).wait(1).to({rotation:76.8,x:20.9,y:49.6},0).wait(1).to({rotation:57.6,x:24.8,y:40.1},0).wait(1).to({rotation:38.4,x:27.2,y:28.4},0).wait(1).to({rotation:19.2,x:27.4,y:14.9},0).wait(1).to({rotation:0,x:25,y:0.5},0).wait(1));
 
 	// saber
 	this.shape = new cjs.Shape();
@@ -72,24 +72,24 @@
 	this.shape_2.setTransform(70.9,46.4);
 
 	this.shape_3 = new cjs.Shape();
-	this.shape_3.graphics.f("#ADE3FF").s().p("AoipXQLsHYEkmSQDCP4oDBxg");
-	this.shape_3.setTransform(70.7,61.9);
+	this.shape_3.graphics.f("#ADE3FF").s().p("ABLJYIrPyvQO0LfFVmQQgUNgogAAIgGAAg");
+	this.shape_3.setTransform(70.5,71.9);
 
 	this.shape_4 = new cjs.Shape();
-	this.shape_4.graphics.f("#ADE3FF").s().p("An9qLQGDGpJ4BeQh/LUpuA9g");
-	this.shape_4.setTransform(77,66.7);
+	this.shape_4.graphics.f("#ADE3FF").s().p("AlOKKIkO0YQJGLiJzjkQmyMfm5AAQggAAgggFg");
+	this.shape_4.setTransform(71.5,101.9);
 
 	this.shape_5 = new cjs.Shape();
-	this.shape_5.graphics.f("#ADE3FF").s().p("AlBD6IhRqWQGOHxGXAFQh7FDjjAAQihAAjVijg");
-	this.shape_5.setTransform(76.3,73.9);
+	this.shape_5.graphics.f("#ADE3FF").s().p("AlBD6IhvqRQGOHxHTAPQkOEvjSAAQiZAAh5ieg");
+	this.shape_5.setTransform(64.3,118.4);
 
 	this.shape_6 = new cjs.Shape();
-	this.shape_6.graphics.f("#ADE3FF").s().p("AlMivQDgDaG5iDQiXEIiaAAQixAAi3lfg");
-	this.shape_6.setTransform(83.2,91.8);
+	this.shape_6.graphics.f("#ADE3FF").s().p("AknkZQCBGdHOA+QihBYh2AAQkoAAgQozg");
+	this.shape_6.setTransform(54.5,132);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.shape}]},1).to({state:[{t:this.shape_1}]},1).to({state:[{t:this.shape_2}]},1).to({state:[{t:this.shape_3}]},1).to({state:[{t:this.shape_4}]},1).to({state:[{t:this.shape_5}]},1).to({state:[{t:this.shape_6}]},1).to({state:[]},1).wait(2));
 
-}).prototype = p = new cjs.MovieClip();
+}).prototype = new cjs.MovieClip();
 
 (lib.Fool = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{"stand":0,walk:1});
