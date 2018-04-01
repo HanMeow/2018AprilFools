@@ -382,7 +382,7 @@ const throwOut = (s = exportRoot.solar) =>{
 	game.throw = true;
 }
 
-const throwing = ( p = exportRoot.Fool ) =>{
+const throwing = ( p = exportRoot.Fool, s = exportRoot.solar ) =>{
 	p.x -= game.throwSpeed;
 	if(p.x<0){
 		game.throw = !1;
