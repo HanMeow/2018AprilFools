@@ -207,6 +207,7 @@ const throwing = ( p = exportRoot.Fool, s = exportRoot.solar ) =>{
 	p.x -= game.throwSpeed;
 	if(p.x<0){
 		game.throw = !1;
+		exportRoot.moon.visible = !0;
 		s.solar1.gotoAndStop(0);
 		s.solar2.gotoAndStop(0);
 		s.eye.gotoAndStop(0);
@@ -228,6 +229,11 @@ const resizeCanvas = e =>{
 	if(exportRoot.solar){
 		exportRoot.solar.x = w-100;
 		exportRoot.solar.y = h/2;
+	}
+
+	if(exportRoot.moon){
+		exportRoot.moon.x = 100;
+		exportRoot.moon.y = h/2;
 	}
 
 	if(null!=stage && null!=canvas){
