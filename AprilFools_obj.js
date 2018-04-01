@@ -4,6 +4,13 @@
 	this.addChild(this.empty = new cjs.MovieClip());
 	this.empty.parent = this;
 
+	this.addChild( this.GodDestroyText = new cjs.Text("0", "50px 'NI7SEG'", "#00CC00") );
+	this.GodDestroyText.name = "GodDestroyText";
+	this.GodDestroyText.lineHeight = 50;
+	this.GodDestroyText.lineWidth = 200;
+	this.GodDestroyText.parent = this;
+	this.GodDestroyText.setTransform(80,0);
+
 	this.addChild(this.Fool = new lib.Fool());
 	this.Fool.parent = this;
 	this.Fool.setTransform(250,250);

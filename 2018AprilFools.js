@@ -30,8 +30,11 @@ var init = () =>{
 		 	babySpeed: 1.5,
 		 	lastDown: (new Date()).getTime(),
 		 	lastGod: (new Date()).getTime(),
-		 	GodGenTime: 3
+		 	GodGenTime: 3,
+		 	GodDestroyNum: 0
 		 	};
+
+	checkData();
 
 	AddCactus(10);
   
@@ -295,6 +298,7 @@ const checkGod = ( g = game.Gods, p = exportRoot.Fool ) =>{
 			}
 		}else if(g[i].currentLabel=='dead'){
 			exportRoot.removeChild(g[i]);
+			updateGod(1);
 			g.splice(i,1);
 		}
 		
@@ -370,4 +374,31 @@ const resizeCanvas = e =>{
 		stage.clear();
 		stage.draw(ctx, false);
 	}
+}
+
+const checkData = () =>{
+	if (!window.localStorage["visited"]) {
+		window.localStorage["visited"] = true;
+		SaveData(); //存檔
+	} else {
+		LoadData(); //讀檔
+	}
+}
+
+const SaveData = () => {	
+	let obj = {}; //存檔物件
+	obj.GodDestroyNum = game.GodDestroyNum;
+	window.localStorage["data"] = JSON.stringify(obj);
+}
+		
+const LoadData = () => {
+	let Obj = JSON.parse(window.localStorage["data"]);
+	if (Obj.GodDestroyNum)game.GodDestroyNum = Obj.GodDestroyNum;
+	updateGod();
+}
+
+const updateGod = (x=0) =>{
+	game.GodDestroyNum += x;
+	exportRoot.GodDestroyText.text = game.GodDestroyNum;
+	SaveData(); //存檔
 }
