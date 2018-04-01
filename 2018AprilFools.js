@@ -11,7 +11,9 @@ var init = () =>{
   	createjs.Ticker.framerate = 30;
   	createjs.Ticker.addEventListener("tick", stage);
   	createjs.Ticker.addEventListener("tick", walking);
-	  //document.addEventListener("keydown", KeydownHandler);
+	//document.addEventListener("keydown", KeydownHandler);
+
+	document.getElementById("menuBtn").addEventListener('click', menuClick);
   
     window.addEventListener('resize', resizeCanvas);
 	resizeCanvas();
@@ -24,6 +26,12 @@ var init = () =>{
     
     document.addEventListener('keydown', keyDown);
     document.addEventListener('keyup', keyUp);
+}
+
+var menuClick = e=>{
+	let menu = document.getElementById("menu");
+	if(menu.style.display == 'none')menu.style.display = 'block';
+	else menu.style.display = 'none';
 }
 
 (lib.root = function(mode,startPosition,loop) {
