@@ -26,15 +26,17 @@ var init = () =>{
 		 	throwSpeed: 60,
 		 	keys: {keyW: 0, keyS: 0, keyA: 0, keyD: 0, keyLt: 0, keyUp: 0, keyRt: 0, keyDn: 0, TouchF: 0},
 		 	babies: [],
-		 	babySpeed: 1.5
+		 	babySpeed: 1.5,
+		 	lastDown: (new Date()).getTime()
 		 	};
   
     canvas.addEventListener('contextmenu', function(e){e.preventDefault();});
   
-    //canvas.addEventListener('mousedown', MouseDown);
+    canvas.addEventListener('mousedown', MouseDown);
     //canvas.addEventListener('mouseup', MouseUp);
     canvas.addEventListener('mousemove', MouseMove);
 
+	canvas.addEventListener('touchstart', TouchStart);
 	canvas.addEventListener('touchmove', TouchMove);
 	canvas.addEventListener('touchend', TouchEnd);
     
@@ -51,14 +53,11 @@ var menuClick = e=>{
 var MouseDown = e =>{
     //log(e.which);
     if(e.which==1){
-       //exportRoot.mouseImg.left.filters = [ new cjs.ColorFilter(1,1,1,1, 255,0,255,0) ];
-       //exportRoot.mouseImg.left.cache(-50,0,50,50);
+       Swish(1);
     }else if(e.which==2){
-       //exportRoot.mouseImg.mid.filters = [ new cjs.ColorFilter(1,1,1,1, 255,0,255,0) ];
-       //exportRoot.mouseImg.mid.cache(-5,0,10,50);
+       Swish(2);
     }else if(e.which==3){
-       //exportRoot.mouseImg.right.filters = [ new cjs.ColorFilter(1,1,1,1, 255,0,255,0) ];
-       //exportRoot.mouseImg.right.cache(0,0,50,50);
+       Swish(3);
     };
 }
 
@@ -83,6 +82,11 @@ const MouseMove = e =>{
 }
 
 const TouchStart = e =>{
+	e.preventDefault();
+	game.target.x = e.changedTouches["0"].clientX;
+	game.target.y = e.changedTouches["0"].clientY;
+	game.keys.TouchF = game.foolSpeed;
+	game.lastDown = (new Date()).getTime();
 }
 
 const TouchMove = e =>{
@@ -90,11 +94,30 @@ const TouchMove = e =>{
 	game.target.x = e.changedTouches["0"].clientX;
 	game.target.y = e.changedTouches["0"].clientY;
 	game.keys.TouchF = game.foolSpeed;
+	game.lastDown = (new Date()).getTime();
 }
 
 const TouchEnd = e =>{
 	e.preventDefault();
 	game.keys.TouchF = 0;
+	if( (new Date()).getTime() - game.lastDown < 200)Swish(2);
+}
+
+const Swish = h =>{
+	switch( h ){
+    	case 1:
+    		if(exportRoot.Fool.hand1.currentLabel != 'swish')exportRoot.Fool.hand1.gotoAndPlay('swish');
+    		break;
+    	case 2:
+    		if(exportRoot.Fool.hand1.currentLabel != 'swish')exportRoot.Fool.hand1.gotoAndPlay('swish');
+    		if(exportRoot.Fool.hand2.currentLabel != 'swish')exportRoot.Fool.hand2.gotoAndPlay('swish');
+    		break;
+    	case 3:
+    		if(exportRoot.Fool.hand2.currentLabel != 'swish')exportRoot.Fool.hand2.gotoAndPlay('swish');
+    		break;
+    	default:
+			break;
+	}
 }
 
 const facing = () =>{
@@ -185,10 +208,11 @@ const walking = ( p = exportRoot.Fool, k = game.keys ) =>{
     	}
 	    p.x += Fspeed*Math.sin(R) + Rspeed*Math.sin(R + Math.PI/2);
 	    p.y -= Fspeed*Math.cos(R) + Rspeed*Math.cos(R + Math.PI/2);
-	    p.play();
+	    if(p.currentLabel=='walk')p.play();
+	    else p.gotoAndPlay('walk');
 	    facing();
   	}else{
-    	p.stop();
+    	p.gotoAndStop('stand');
   	}
 }
 
@@ -224,7 +248,7 @@ const MoonBabyGen = ( r = exportRoot, g = game ) =>{
 	let b = new lib.moon();
 	g.babies.push(b);
 	b.x = 0;
-	b.y = window.innerWidth;
+	b.y = window.innerHeight;
 	b.scaleX = b.scaleY = 0.5;
 	r.addChild(b);
 }
@@ -251,6 +275,7 @@ const killed = ( p = exportRoot.Fool ) =>{
 	c.rotation = p.rotation;
 	exportRoot.empty.addChild(c);
 	p.x = p.y = 0;
+	game.throw = !1;
 }
 
 const resizeCanvas = e =>{
