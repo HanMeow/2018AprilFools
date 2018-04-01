@@ -256,10 +256,12 @@ const LehmFiring = ( p = exportRoot.Fool, l = exportRoot.Lehm ) =>{
 		l.LehmGun.rotation = l.LehmGun.rotation%360;
 		let X = p.x - l.x,
 			Y = l.y - p.y,
-			R = l.LehmGun.rotation - Math.atan2( X, Y )*180/Math.PI;
+			R = l.LehmGun.rotation - Math.atan2( X, Y )*180/Math.PI,
+			HitR = Math.atan( 50/Math.sqrt(X*X+Y*Y) )*180/Math.PI;
 		if( ( R<180 && R>0 ) || R<-180  )l.LehmGun.rotation-=0.5;
 		else l.LehmGun.rotation+=0.5;
-		if( Math.abs(R)<5 || Math.abs(R)>355 )killed();
+		if( Math.abs(R)<HitR || Math.abs(R)>(360-HitR) )killed();
+		log(HitR);
 	}else{
 		l.LehmGun.gun_fire.visible = !1;
 	}
