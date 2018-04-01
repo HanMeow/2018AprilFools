@@ -384,7 +384,12 @@ const throwOut = (s = exportRoot.solar) =>{
 
 const throwing = ( p = exportRoot.Fool ) =>{
 	p.x -= game.throwSpeed;
-	if(p.x<0)game.throw = !1;
+	if(p.x<0){
+		game.throw = !1;
+		s.solar1.gotoAndStop(0);
+		s.solar2.gotoAndStop(0);
+		s.eye.gotoAndStop(0);
+	}
 }
 
 const resizeCanvas = e =>{
