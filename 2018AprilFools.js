@@ -370,6 +370,7 @@ const killed = ( p = exportRoot.Fool ) =>{
 	exportRoot.empty.addChild(c);
 	p.x = p.y = 0;
 	game.throw = !1;
+	game.lastLehm += 10000;
 	solarStatus(0);
 }
 
