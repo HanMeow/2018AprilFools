@@ -1,16 +1,17 @@
 var canvas, stage, exportRoot, game;
 var lib = {}; //函數庫
+const cjs = createjs;
 var log = console.log; //shortcut
 
 var init = () =>{  
     canvas = document.getElementById("MyCanvas");
   
     exportRoot = new lib.root();
-  	stage = new createjs.Stage("MyCanvas");
+  	stage = new cjs.Stage("MyCanvas");
   	stage.addChild(exportRoot);
-  	createjs.Ticker.framerate = 30;
-  	createjs.Ticker.addEventListener("tick", stage);
-  	createjs.Ticker.addEventListener("tick", walking);
+  	cjs.Ticker.framerate = 30;
+  	cjs.Ticker.addEventListener("tick", stage);
+  	cjs.Ticker.addEventListener("tick", walking);
 	//document.addEventListener("keydown", KeydownHandler);
 
 	document.getElementById("menuBtn").addEventListener('click', menuClick);
@@ -42,90 +43,150 @@ var menuClick = e=>{
 	this.addChild(this.Fool = new lib.Fool());
 	this.Fool.parent = this;
 	this.Fool.setTransform(250,250);
+
+	this.addChild(this.solar = new lib.solar() );
+	this.solar.parent = this;
+
   	this.Fool.keyW = this.Fool.keyS = this.Fool.keyA = this.Fool.keyD = this.Fool.keyLt = this.Fool.keyUp = this.Fool.keyRt = this.Fool.keyDn = 0;
 
-}).prototype = new createjs.MovieClip();
+}).prototype = new cjs.MovieClip();
 
 (lib.feet = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
 	// 圖層_1
-	this.shape = new createjs.Shape();
+	this.shape = new cjs.Shape();
 	this.shape.graphics.f("#666666").s().p("AiwEZQhJh0AAilQAAikBJh0QBJh1BnAAQBoAABIB1QBKB0AACkQAAClhKB0QhIB1hoAAQhnAAhJh1g");
 
-	this.timeline.addTween(createjs.Tween.get(this.shape).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
-}).prototype = new createjs.MovieClip();
+}).prototype = new cjs.MovieClip();
 
 (lib.hand = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
 	// 圖層_1
-	this.shape = new createjs.Shape();
+	this.shape = new cjs.Shape();
 	this.shape.graphics.f("#333333").s().p("AjvCjQhEgBgvgvQgwgwAAhDQAAhCAwgwQAvgvBEgBIHfAAQBEABAvAvQAwAwAABCQAABDgwAwQgvAvhEABg");
 	this.shape.setTransform(25,0);
 
-	this.timeline.addTween(createjs.Tween.get(this.shape).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
-}).prototype = new createjs.MovieClip();
+}).prototype = new cjs.MovieClip();
 
 (lib.Fool = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{stand:0,walk:1});
 
 	// arrow
-	this.shape = new createjs.Shape();
+	this.shape = new cjs.Shape();
 	this.shape.graphics.f("#66CCFF").s().p("AAAAvQgzAAgwAIIBjhtIBkBtQgwgIg0AAg");
 	this.shape.setTransform(0,-59.7);
 
-	this.timeline.addTween(createjs.Tween.get(this.shape).wait(14));
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(14));
 
 	// head
-	this.shape_1 = new createjs.Shape();
+	this.shape_1 = new cjs.Shape();
 	this.shape_1.graphics.f("#333333").s().p("AlhFhQiSiSAAjPQAAjOCSiTQCTiSDOAAQDPAACTCSQCSCTAADOQAADPiSCSQiTCTjPAAQjOAAiTiTg");
 
-	this.timeline.addTween(createjs.Tween.get(this.shape_1).wait(14));
+	this.timeline.addTween(cjs.Tween.get(this.shape_1).wait(14));
 
 	// hand1
 	this.instance = new lib.hand();
 	this.instance.parent = this;
 
-	this.timeline.addTween(createjs.Tween.get(this.instance).wait(1).to({regX:25,rotation:-7.5,x:24.8,y:-3.2},0).wait(1).to({rotation:-15,x:24.2,y:-6.4},0).wait(1).to({rotation:-22.5,x:23.1,y:-9.5},0).wait(1).to({rotation:-30,x:21.7,y:-12.5},0).wait(1).to({rotation:-18,x:23.8,y:-7.7},0).wait(1).to({rotation:-6,x:24.9,y:-2.6},0).wait(1).to({rotation:6,y:2.6},0).wait(1).to({rotation:18,x:23.8,y:7.8},0).wait(1).to({rotation:30,x:21.7,y:12.5},0).wait(1).to({rotation:24,x:22.9,y:10.2},0).wait(1).to({rotation:18,x:23.8,y:7.8},0).wait(1).to({rotation:12,x:24.5,y:5.2},0).wait(1).to({rotation:6,x:24.9,y:2.6},0).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1).to({regX:25,rotation:-7.5,x:24.8,y:-3.2},0).wait(1).to({rotation:-15,x:24.2,y:-6.4},0).wait(1).to({rotation:-22.5,x:23.1,y:-9.5},0).wait(1).to({rotation:-30,x:21.7,y:-12.5},0).wait(1).to({rotation:-18,x:23.8,y:-7.7},0).wait(1).to({rotation:-6,x:24.9,y:-2.6},0).wait(1).to({rotation:6,y:2.6},0).wait(1).to({rotation:18,x:23.8,y:7.8},0).wait(1).to({rotation:30,x:21.7,y:12.5},0).wait(1).to({rotation:24,x:22.9,y:10.2},0).wait(1).to({rotation:18,x:23.8,y:7.8},0).wait(1).to({rotation:12,x:24.5,y:5.2},0).wait(1).to({rotation:6,x:24.9,y:2.6},0).wait(1));
 
 	// hand2
 	this.instance_1 = new lib.hand();
 	this.instance_1.parent = this;
 	this.instance_1.setTransform(0,0,1,1,180);
 
-	this.timeline.addTween(createjs.Tween.get(this.instance_1).wait(1).to({regX:25,rotation:172.5,x:-24.8,y:3.3},0).wait(1).to({rotation:165,x:-24.1,y:6.5},0).wait(1).to({rotation:157.5,x:-23.1,y:9.6},0).wait(1).to({rotation:150,x:-21.6,y:12.5},0).wait(1).to({rotation:162,x:-23.8,y:7.8},0).wait(1).to({rotation:174,x:-24.8,y:2.6},0).wait(1).to({rotation:186,y:-2.6},0).wait(1).to({rotation:198,x:-23.8,y:-7.7},0).wait(1).to({rotation:210,x:-21.6,y:-12.5},0).wait(1).to({rotation:204,x:-22.8,y:-10.1},0).wait(1).to({rotation:198,x:-23.8,y:-7.7},0).wait(1).to({rotation:192,x:-24.4,y:-5.2},0).wait(1).to({rotation:186,x:-24.8,y:-2.6},0).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1).to({regX:25,rotation:172.5,x:-24.8,y:3.3},0).wait(1).to({rotation:165,x:-24.1,y:6.5},0).wait(1).to({rotation:157.5,x:-23.1,y:9.6},0).wait(1).to({rotation:150,x:-21.6,y:12.5},0).wait(1).to({rotation:162,x:-23.8,y:7.8},0).wait(1).to({rotation:174,x:-24.8,y:2.6},0).wait(1).to({rotation:186,y:-2.6},0).wait(1).to({rotation:198,x:-23.8,y:-7.7},0).wait(1).to({rotation:210,x:-21.6,y:-12.5},0).wait(1).to({rotation:204,x:-22.8,y:-10.1},0).wait(1).to({rotation:198,x:-23.8,y:-7.7},0).wait(1).to({rotation:192,x:-24.4,y:-5.2},0).wait(1).to({rotation:186,x:-24.8,y:-2.6},0).wait(1));
 
 	// foot1
 	this.instance_2 = new lib.feet();
 	this.instance_2.parent = this;
 	this.instance_2.setTransform(-21,-0.7);
 
-	this.timeline.addTween(createjs.Tween.get(this.instance_2).wait(1).to({y:-5.7},0).wait(1).to({y:-10.7},0).wait(1).to({y:-15.7},0).wait(1).to({y:-20.7},0).wait(1).to({y:-12.7},0).wait(1).to({y:-4.7},0).wait(1).to({y:3.3},0).wait(1).to({y:11.3},0).wait(1).to({y:19.3},0).wait(1).to({y:15.3},0).wait(1).to({y:11.3},0).wait(1).to({y:7.3},0).wait(1).to({y:3.3},0).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1).to({y:-5.7},0).wait(1).to({y:-10.7},0).wait(1).to({y:-15.7},0).wait(1).to({y:-20.7},0).wait(1).to({y:-12.7},0).wait(1).to({y:-4.7},0).wait(1).to({y:3.3},0).wait(1).to({y:11.3},0).wait(1).to({y:19.3},0).wait(1).to({y:15.3},0).wait(1).to({y:11.3},0).wait(1).to({y:7.3},0).wait(1).to({y:3.3},0).wait(1));
 
 	// foot2
 	this.instance_3 = new lib.feet();
 	this.instance_3.parent = this;
 	this.instance_3.setTransform(21,-0.7);
 
-	this.timeline.addTween(createjs.Tween.get(this.instance_3).wait(1).to({y:4.3},0).wait(1).to({y:9.3},0).wait(1).to({y:14.3},0).wait(1).to({y:19.3},0).wait(1).to({y:11.3},0).wait(1).to({y:3.3},0).wait(1).to({y:-4.7},0).wait(1).to({y:-12.7},0).wait(1).to({y:-20.7},0).wait(1).to({y:-16.7},0).wait(1).to({y:-12.7},0).wait(1).to({y:-8.7},0).wait(1).to({y:-4.7},0).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance_3).wait(1).to({y:4.3},0).wait(1).to({y:9.3},0).wait(1).to({y:14.3},0).wait(1).to({y:19.3},0).wait(1).to({y:11.3},0).wait(1).to({y:3.3},0).wait(1).to({y:-4.7},0).wait(1).to({y:-12.7},0).wait(1).to({y:-20.7},0).wait(1).to({y:-16.7},0).wait(1).to({y:-12.7},0).wait(1).to({y:-8.7},0).wait(1).to({y:-4.7},0).wait(1));
 
 	this.stop();
 	
-}).prototype = new createjs.MovieClip();
+}).prototype = new cjs.MovieClip();
+
+(lib.solar1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	this.addChild( this.shape = new cjs.Shape() );
+	this.shape.graphics.f().s("#FF0000").ss(5,1,1).p("AMiruQCEDfAAEWQAAEWiEDfQhABthhBhQklElmdAAQmeAAklklQhhhhhAhtINkn1");
+	this.shape.setTransform(0,26);
+
+	this.addChild( this.shape_1 = new cjs.Shape() );
+	this.shape_1.graphics.f("#FF9933").s().p("AsEHJQhghghBhuINknzINjn2QCEDgAAEWQAAEUiEDgQhBBthgBgQklEmmdAAQmeAAklkmg");
+	this.shape_1.setTransform(0,26);
+
+}).prototype = new cjs.MovieClip();
+
+
+(lib.solar2 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	this.addChild( this.shape = new cjs.Shape() );
+	this.shape.graphics.f().s("#FF0000").ss(5,1,1).p("AhBAAItkn0QBAhuBhhgQElklGeAAQGdAAElElQBhBgBABuQCEDfAAEVQAAEWiDDgAMiH2QhABthhBgQklElmdAAQmeAAklklQhhhghAhu");
+	this.shape.setTransform(6,-1);
+
+	this.addChild( this.shape_1 = new cjs.Shape() );
+	this.shape_1.graphics.f("#FF9933").s().p("AsELDQhghghBhuINkn1Itkn0QBBhuBghgQElklGeAAQGdAAElElQBgBgBBBuQCEDfAAEVQAAEWiEDfIAAAAQhBBthgBhQklElmdAAQmeAAklklg");
+	this.shape_1.setTransform(6,-1);
+
+}).prototype = new cjs.MovieClip();
+
+(lib.solar = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// eye
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#FFFFFF").s().p("AhqCcIAAk3QBYAAA+BaQA/BZAACAIAAAEg");
+	this.shape.setTransform(41.2,-57.6);
+
+	this.shape_1 = new cjs.Shape();
+	this.shape_1.graphics.f("#000000").s().p("AgjEwQhBgPgyhHQg+hZgBh9IAAgEQAAh/A/haQAyhIBBgOQASgEARAAIAAE3IDWAAQgBB9g+BZQg/BahYAAQgRAAgSgEg");
+	this.shape_1.setTransform(30.5,-42.4);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(20));
+
+	// 圖層_1
+	this.instance = new lib.solar1();
+	this.instance.parent = this;
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1).to({regY:26,rotation:3.3,x:-1.5,y:25.9},0).wait(1).to({rotation:6.7,x:-3,y:25.8},0).wait(1).to({rotation:10,x:-4.5,y:25.6},0).wait(1).to({rotation:13.3,x:-6,y:25.3},0).wait(1).to({rotation:16.7,x:-7.4,y:24.9},0).wait(1).to({rotation:20,x:-8.9,y:24.4},0).wait(1).to({rotation:23.3,x:-10.3,y:23.8},0).wait(1).to({rotation:26.7,x:-11.6,y:23.2},0).wait(1).to({rotation:30,x:-13,y:22.5},0).wait(1).to({rotation:27,x:-11.8,y:23.1},0).wait(1).to({rotation:24,x:-10.5,y:23.7},0).wait(1).to({rotation:21,x:-9.3,y:24.2},0).wait(1).to({rotation:18,x:-8,y:24.7},0).wait(1).to({rotation:15,x:-6.7,y:25.1},0).wait(1).to({rotation:12,x:-5.4,y:25.4},0).wait(1).to({rotation:9,x:-4,y:25.7},0).wait(1).to({rotation:6,x:-2.7,y:25.8},0).wait(1).to({rotation:3,x:-1.3,y:25.9},0).wait(1).to({rotation:0,x:0,y:26},0).wait(1));
+
+	// 圖層_3
+	this.instance_1 = new lib.solar2();
+	this.instance_1.parent = this;
+	this.instance_1.setTransform(-6,-1);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1).to({regX:6,regY:-1,rotation:-3.3,x:0,y:-2.3},0).wait(1).to({rotation:-6.7,x:-0.1,y:-2.7},0).wait(1).to({rotation:-10,x:-0.2,y:-3},0).wait(1).to({rotation:-13.3,x:-0.4,y:-3.3},0).wait(1).to({rotation:-16.7,x:-0.5,y:-3.6},0).wait(1).to({rotation:-20,x:-0.7,y:-4},0).wait(1).to({rotation:-23.3,x:-0.9,y:-4.3},0).wait(1).to({rotation:-26.7,x:-1.1,y:-4.6},0).wait(1).to({rotation:-30,x:-1.3,y:-4.8},0).wait(1).to({rotation:-27,x:-1.1,y:-4.6},0).wait(1).to({rotation:-24,x:-0.9,y:-4.3},0).wait(1).to({rotation:-21,x:-0.7,y:-4.1},0).wait(1).to({rotation:-18,x:-0.6,y:-3.8},0).wait(1).to({rotation:-15,x:-0.4,y:-3.5},0).wait(1).to({rotation:-12,x:-0.3,y:-3.2},0).wait(1).to({rotation:-9,x:-0.2,y:-2.9},0).wait(1).to({rotation:-6,x:-0.1,y:-2.6},0).wait(1).to({rotation:-3,x:0,y:-2.3},0).wait(1).to({rotation:0,y:-2},0).wait(1));
+
+}).prototype = new cjs.MovieClip();
 
 var MouseDown = e =>{
     //log(e.which);
     if(e.which==1){
-       //exportRoot.mouseImg.left.filters = [ new createjs.ColorFilter(1,1,1,1, 255,0,255,0) ];
+       //exportRoot.mouseImg.left.filters = [ new cjs.ColorFilter(1,1,1,1, 255,0,255,0) ];
        //exportRoot.mouseImg.left.cache(-50,0,50,50);
     }else if(e.which==2){
-       //exportRoot.mouseImg.mid.filters = [ new createjs.ColorFilter(1,1,1,1, 255,0,255,0) ];
+       //exportRoot.mouseImg.mid.filters = [ new cjs.ColorFilter(1,1,1,1, 255,0,255,0) ];
        //exportRoot.mouseImg.mid.cache(-5,0,10,50);
     }else if(e.which==3){
-       //exportRoot.mouseImg.right.filters = [ new createjs.ColorFilter(1,1,1,1, 255,0,255,0) ];
+       //exportRoot.mouseImg.right.filters = [ new cjs.ColorFilter(1,1,1,1, 255,0,255,0) ];
        //exportRoot.mouseImg.right.cache(0,0,50,50);
     };
 }
@@ -236,6 +297,8 @@ const walking = e =>{
   	}else{
     	p.stop();
   	}
+  	p.x ++;//太陽
+  	if(p.y>exportRoot.solar.y)p.y-=0.5;else p.y+=0.5;
 }
 
 const resizeCanvas = e =>{
@@ -249,6 +312,11 @@ const resizeCanvas = e =>{
 
 	canvas.width = w;
 	canvas.height = h;
+
+	if(exportRoot.solar){
+		exportRoot.solar.x = w-100;
+		exportRoot.solar.y = h/2;
+	}
 
 	if(null!=stage && null!=canvas){
 		var ctx = canvas.getContext("2d");
