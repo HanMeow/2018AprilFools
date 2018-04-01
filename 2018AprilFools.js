@@ -20,6 +20,8 @@ var init = () =>{
 	resizeCanvas();
 
 	game = {target: { x: 250 ,y: 0 },
+			LehmTarget: { x: 0 ,y: 0 },
+			LehmSpeed: 0.5,
 			foolSpeed: 2,
 			solarAtr: 1,
 		 	throw: false,
@@ -30,9 +32,13 @@ var init = () =>{
 		 	babySpeed: 1.5,
 		 	lastDown: (new Date()).getTime(),
 		 	lastGod: (new Date()).getTime(),
+		 	lastLehm: (new Date()).getTime(),
 		 	GodGenTime: 3,
 		 	GodDestroyNum: 0
 		 	};
+
+	exportRoot.Lehm.x = window.innerWidth;
+	exportRoot.Lehm.y = window.innerHeight;
 
 	checkData();
 
@@ -204,6 +210,8 @@ const Ticking = e =>{
   	babiesChasing();
   	GodGen();
   	checkGod();
+  	LehmWalking();
+  	LehmFiring();
   	if(game.throw)throwing();
 }
 
@@ -224,6 +232,36 @@ const walking = ( p = exportRoot.Fool, k = game.keys ) =>{
   	}else{
     	p.gotoAndStop('stand');
   	}
+}
+
+const LehmWalking = ( p = exportRoot.Fool, l = exportRoot.Lehm, t = game.LehmTarget ) =>{
+	let X = t.x - l.x,
+		Y = t.y - l.y,
+		R = game.LehmSpeed/Math.sqrt( X*X + Y*Y ),
+		now = (new Date()).getTime();
+	l.x += R*X;
+	l.y += R*Y;
+	if( now - game.lastLehm > 10000){
+		game.lastLehm = now;
+		t.x = p.x;
+		t.y = p.y;
+	}
+}
+
+const LehmFiring = ( p = exportRoot.Fool, l = exportRoot.Lehm ) =>{
+	let now = (new Date()).getTime();
+	if( now - game.lastLehm > 7000 ){
+		l.LehmGun.gun_fire.visible = !0;
+		l.LehmGun.rotation = l.LehmGun.rotation%360;
+		let X = p.x - l.x,
+			Y = l.y - p.y,
+			R = l.LehmGun.rotation - Math.atan2( X, Y )*180/Math.PI;
+		if( ( R<180 && R>0 ) || R<-180  )l.LehmGun.rotation-=0.5;
+		else l.LehmGun.rotation+=0.5;
+		if( Math.abs(R)<5 || Math.abs(R)>355 )killed();
+	}else{
+		l.LehmGun.gun_fire.visible = !1;
+	}
 }
 
 const solarAtr = ( p = exportRoot.Fool, s = exportRoot.solar ) =>{
