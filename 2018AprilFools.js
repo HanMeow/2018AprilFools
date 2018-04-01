@@ -32,6 +32,8 @@ var init = () =>{
 		 	lastGod: (new Date()).getTime(),
 		 	GodGenTime: 3
 		 	};
+
+	AddCactus(10);
   
     canvas.addEventListener('contextmenu', function(e){e.preventDefault();});
   
@@ -329,6 +331,16 @@ const solarStatus = ( f=0, s=exportRoot.solar ) =>{
 	s.solar1.gotoAndStop(f);
 	s.solar2.gotoAndStop(f);
 	s.eye.gotoAndStop(f);
+}
+
+const AddCactus = (n=1) =>{
+	while(n--){
+		let c = new lib.cactus();
+		c.x = Math.random()*window.innerWidth;
+		c.y = Math.random()*window.innerHeight;
+		c.cache(-50,-50,100,100);
+		exportRoot.empty.addChild(c);
+	}
 }
 
 const resizeCanvas = e =>{
