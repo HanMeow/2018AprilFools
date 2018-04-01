@@ -11,7 +11,7 @@ var init = () =>{
   	stage.addChild(exportRoot);
   	cjs.Ticker.framerate = 30;
   	cjs.Ticker.addEventListener("tick", stage);
-  	cjs.Ticker.addEventListener("tick", walking);
+  	cjs.Ticker.addEventListener("tick", Ticking);
 	//document.addEventListener("keydown", KeydownHandler);
 
 	document.getElementById("menuBtn").addEventListener('click', menuClick);
@@ -19,7 +19,7 @@ var init = () =>{
     window.addEventListener('resize', resizeCanvas);
 	resizeCanvas();
 
-	game = { target: { x: 250 ,y: 0 } };
+	game = { target: { x: 250 ,y: 0 }, solarAtr: 1, throw: false, throwSpeed: 60 };
   
     canvas.addEventListener('contextmenu', function(e){e.preventDefault();});
   
@@ -124,27 +124,91 @@ var menuClick = e=>{
 (lib.solar1 = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
-	this.addChild( this.shape = new cjs.Shape() );
+	// timeline functions:
+	this.frame_0 = function() {
+		this.stop();
+	}
+
+	// actions tween:
+	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(2));
+
+	// 圖層_1
+	this.shape = new cjs.Shape();
 	this.shape.graphics.f().s("#FF0000").ss(5,1,1).p("AMiruQCEDfAAEWQAAEWiEDfQhABthhBhQklElmdAAQmeAAklklQhhhhhAhtINkn1");
 	this.shape.setTransform(0,26);
 
-	this.addChild( this.shape_1 = new cjs.Shape() );
+	this.shape_1 = new cjs.Shape();
 	this.shape_1.graphics.f("#FF9933").s().p("AsEHJQhghghBhuINknzINjn2QCEDgAAEWQAAEUiEDgQhBBthgBgQklEmmdAAQmeAAklkmg");
 	this.shape_1.setTransform(0,26);
 
-}).prototype = new cjs.MovieClip();
+	this.shape_2 = new cjs.Shape();
+	this.shape_2.graphics.f().s("#00FF00").ss(5,1,1).p("AMiruQCEDfAAEWQAAEWiEDfQhABthhBhQklElmdAAQmeAAklklQhhhhhAhtINkn1");
+	this.shape_2.setTransform(0,26);
 
+	this.shape_3 = new cjs.Shape();
+	this.shape_3.graphics.f("#66FFCC").s().p("AsEHJQhghghBhuINknzINjn2QCEDgAAEWQAAEUiEDgQhBBthgBgQklEmmdAAQmeAAklkmg");
+	this.shape_3.setTransform(0,26);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).to({state:[{t:this.shape_3},{t:this.shape_2}]},1).wait(1));
+
+}).prototype = new cjs.MovieClip();
 
 (lib.solar2 = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
-	this.addChild( this.shape = new cjs.Shape() );
-	this.shape.graphics.f().s("#FF0000").ss(5,1,1).p("AhBAAItkn0QBAhuBhhgQElklGeAAQGdAAElElQBhBgBABuQCEDfAAEVQAAEWiDDgAMiH2QhABthhBgQklElmdAAQmeAAklklQhhhghAhu");
-	this.shape.setTransform(6,-1);
+	// timeline functions:
+	this.frame_0 = function() {
+		this.stop();
+	}
 
-	this.addChild( this.shape_1 = new cjs.Shape() );
+	// actions tween:
+	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(2));
+
+	// 圖層_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f().s("#FF0000").ss(5,1,1).p("AhBD5Itkn0QBAhtBhhhQElklGeAAQGdAAElElQBhBhBABtQCEDfAAEVQAAEWiDDg");
+	this.shape.setTransform(6,-25.9);
+
+	this.shape_1 = new cjs.Shape();
 	this.shape_1.graphics.f("#FF9933").s().p("AsELDQhghghBhuINkn1Itkn0QBBhuBghgQElklGeAAQGdAAElElQBgBgBBBuQCEDfAAEVQAAEWiEDfIAAAAQhBBthgBhQklElmdAAQmeAAklklg");
 	this.shape_1.setTransform(6,-1);
+
+	this.shape_2 = new cjs.Shape();
+	this.shape_2.graphics.f().s("#00FF00").ss(5,1,1).p("AhBD5Itkn0QBAhtBhhhQElklGeAAQGdAAElElQBhBhBABtQCEDfAAEVQAAEWiDDg");
+	this.shape_2.setTransform(6,-25.9);
+
+	this.shape_3 = new cjs.Shape();
+	this.shape_3.graphics.f("#66FFCC").s().p("AsELDQhghghBhuINkn1Itkn0QBBhuBghgQElklGeAAQGdAAElElQBgBgBBBuQCEDfAAEVQAAEWiEDfIAAAAQhBBthgBhQklElmdAAQmeAAklklg");
+	this.shape_3.setTransform(6,-1);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).to({state:[{t:this.shape_3},{t:this.shape_2}]},1).wait(1));
+
+}).prototype = new cjs.MovieClip();
+
+(lib.eye = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// timeline functions:
+	this.frame_0 = function() {
+		this.stop();
+	}
+
+	// actions tween:
+	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(2));
+
+	// 圖層_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#000000").s().p("AgiEwQhDgPgxhHQg+hZgBh9IAAgEQAAh/A/haQAxhIBDgOQARgEARAAIAAE3IDWAAQgBB9g+BZQg+BahZAAQgRAAgRgEg");
+
+	this.shape_1 = new cjs.Shape();
+	this.shape_1.graphics.f("#FFFFFF").s().p("AhqCcIAAk3QBZAAA9BaQA/BZAACAIAAAEg");
+	this.shape_1.setTransform(10.7,-15.2);
+
+	this.shape_2 = new cjs.Shape();
+	this.shape_2.graphics.f().s("#000000").ss(5,1,1).p("AiJD/ICOjqICyDqAi2jgIC7D1ICokT");
+	this.shape_2.setTransform(-1,-1.9);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).to({state:[{t:this.shape_2}]},1).wait(1));
 
 }).prototype = new cjs.MovieClip();
 
@@ -152,28 +216,26 @@ var menuClick = e=>{
 	this.initialize(mode,startPosition,loop,{});
 
 	// eye
-	this.shape = new cjs.Shape();
-	this.shape.graphics.f("#FFFFFF").s().p("AhqCcIAAk3QBYAAA+BaQA/BZAACAIAAAEg");
-	this.shape.setTransform(41.2,-57.6);
+	this.eye = new lib.eye();
+	this.eye.parent = this;
+	this.eye.setTransform(30.5,-42.4);
 
-	this.shape_1 = new cjs.Shape();
-	this.shape_1.graphics.f("#000000").s().p("AgjEwQhBgPgyhHQg+hZgBh9IAAgEQAAh/A/haQAyhIBBgOQASgEARAAIAAE3IDWAAQgBB9g+BZQg/BahYAAQgRAAgSgEg");
-	this.shape_1.setTransform(30.5,-42.4);
-
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(20));
+	this.timeline.addTween(cjs.Tween.get(this.eye).wait(20));
 
 	// 圖層_1
-	this.instance = new lib.solar1();
-	this.instance.parent = this;
+	this.solar1 = new lib.solar1();
+	this.solar1.name = "solar1";
+	this.solar1.parent = this;
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1).to({regY:26,rotation:3.3,x:-1.5,y:25.9},0).wait(1).to({rotation:6.7,x:-3,y:25.8},0).wait(1).to({rotation:10,x:-4.5,y:25.6},0).wait(1).to({rotation:13.3,x:-6,y:25.3},0).wait(1).to({rotation:16.7,x:-7.4,y:24.9},0).wait(1).to({rotation:20,x:-8.9,y:24.4},0).wait(1).to({rotation:23.3,x:-10.3,y:23.8},0).wait(1).to({rotation:26.7,x:-11.6,y:23.2},0).wait(1).to({rotation:30,x:-13,y:22.5},0).wait(1).to({rotation:27,x:-11.8,y:23.1},0).wait(1).to({rotation:24,x:-10.5,y:23.7},0).wait(1).to({rotation:21,x:-9.3,y:24.2},0).wait(1).to({rotation:18,x:-8,y:24.7},0).wait(1).to({rotation:15,x:-6.7,y:25.1},0).wait(1).to({rotation:12,x:-5.4,y:25.4},0).wait(1).to({rotation:9,x:-4,y:25.7},0).wait(1).to({rotation:6,x:-2.7,y:25.8},0).wait(1).to({rotation:3,x:-1.3,y:25.9},0).wait(1).to({rotation:0,x:0,y:26},0).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.solar1).wait(1).to({regY:26,rotation:3.3,x:-1.5,y:25.9},0).wait(1).to({rotation:6.7,x:-3,y:25.8},0).wait(1).to({rotation:10,x:-4.5,y:25.6},0).wait(1).to({rotation:13.3,x:-6,y:25.3},0).wait(1).to({rotation:16.7,x:-7.4,y:24.9},0).wait(1).to({rotation:20,x:-8.9,y:24.4},0).wait(1).to({rotation:23.3,x:-10.3,y:23.8},0).wait(1).to({rotation:26.7,x:-11.6,y:23.2},0).wait(1).to({rotation:30,x:-13,y:22.5},0).wait(1).to({rotation:27,x:-11.8,y:23.1},0).wait(1).to({rotation:24,x:-10.5,y:23.7},0).wait(1).to({rotation:21,x:-9.3,y:24.2},0).wait(1).to({rotation:18,x:-8,y:24.7},0).wait(1).to({rotation:15,x:-6.7,y:25.1},0).wait(1).to({rotation:12,x:-5.4,y:25.4},0).wait(1).to({rotation:9,x:-4,y:25.7},0).wait(1).to({rotation:6,x:-2.7,y:25.8},0).wait(1).to({rotation:3,x:-1.3,y:25.9},0).wait(1).to({rotation:0,x:0,y:26},0).wait(1));
 
 	// 圖層_3
-	this.instance_1 = new lib.solar2();
-	this.instance_1.parent = this;
-	this.instance_1.setTransform(-6,-1);
+	this.solar2 = new lib.solar2();
+	this.solar2.name = "solar2";
+	this.solar2.parent = this;
+	this.solar2.setTransform(-6,-1);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1).to({regX:6,regY:-1,rotation:-3.3,x:0,y:-2.3},0).wait(1).to({rotation:-6.7,x:-0.1,y:-2.7},0).wait(1).to({rotation:-10,x:-0.2,y:-3},0).wait(1).to({rotation:-13.3,x:-0.4,y:-3.3},0).wait(1).to({rotation:-16.7,x:-0.5,y:-3.6},0).wait(1).to({rotation:-20,x:-0.7,y:-4},0).wait(1).to({rotation:-23.3,x:-0.9,y:-4.3},0).wait(1).to({rotation:-26.7,x:-1.1,y:-4.6},0).wait(1).to({rotation:-30,x:-1.3,y:-4.8},0).wait(1).to({rotation:-27,x:-1.1,y:-4.6},0).wait(1).to({rotation:-24,x:-0.9,y:-4.3},0).wait(1).to({rotation:-21,x:-0.7,y:-4.1},0).wait(1).to({rotation:-18,x:-0.6,y:-3.8},0).wait(1).to({rotation:-15,x:-0.4,y:-3.5},0).wait(1).to({rotation:-12,x:-0.3,y:-3.2},0).wait(1).to({rotation:-9,x:-0.2,y:-2.9},0).wait(1).to({rotation:-6,x:-0.1,y:-2.6},0).wait(1).to({rotation:-3,x:0,y:-2.3},0).wait(1).to({rotation:0,y:-2},0).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.solar2).wait(1).to({regX:6,regY:-2.3,rotation:-3.3,x:-0.1,y:-3.6},0).wait(1).to({rotation:-6.7,x:-0.3,y:-4},0).wait(1).to({rotation:-10,x:-0.5,y:-4.3},0).wait(1).to({rotation:-13.3,x:-0.7,y:-4.6},0).wait(1).to({rotation:-16.7,x:-0.9,y:-4.9},0).wait(1).to({rotation:-20,x:-1.1,y:-5.2},0).wait(1).to({rotation:-23.3,x:-1.4,y:-5.5},0).wait(1).to({rotation:-26.7,x:-1.7,y:-5.7},0).wait(1).to({rotation:-30,x:-1.9,y:-6},0).wait(1).to({rotation:-27,x:-1.7,y:-5.7},0).wait(1).to({rotation:-24,x:-1.4,y:-5.5},0).wait(1).to({rotation:-21,x:-1.2,y:-5.3},0).wait(1).to({rotation:-18,x:-1,y:-5},0).wait(1).to({rotation:-15,x:-0.8,y:-4.7},0).wait(1).to({rotation:-12,x:-0.6,y:-4.5},0).wait(1).to({rotation:-9,x:-0.4,y:-4.2},0).wait(1).to({rotation:-6,x:-0.3,y:-3.9},0).wait(1).to({rotation:-3,x:-0.1,y:-3.6},0).wait(1).to({rotation:0,x:0,y:-3.3},0).wait(1));
 
 }).prototype = new cjs.MovieClip();
 
@@ -280,9 +342,14 @@ var keyUp = e =>{
 	}
 }
 
-const walking = e =>{
-  	let p = exportRoot.Fool,
-  		Fspeed = ( p.keyW || p.keyUp ) + ( p.keyS || p.keyDn ),
+const Ticking = e =>{
+  	walking();
+  	solarAtr();
+  	if(game.throw)throwing();
+}
+
+const walking = ( p = exportRoot.Fool ) =>{
+	let Fspeed = ( p.keyW || p.keyUp ) + ( p.keyS || p.keyDn ),
       	Rspeed = ( p.keyA || p.keyLt ) + ( p.keyD || p.keyRt),
       	R = p.rotation*Math.PI/180;
   	if(Fspeed || Rspeed){
@@ -297,8 +364,27 @@ const walking = e =>{
   	}else{
     	p.stop();
   	}
-  	p.x ++;//太陽
-  	if(p.y>exportRoot.solar.y)p.y-=0.5;else p.y+=0.5;
+}
+
+const solarAtr = ( p = exportRoot.Fool, s = exportRoot.solar ) =>{
+	let X = s.x - p.x,
+		Y = s.y - p.y,
+		R = game.solarAtr/Math.sqrt( X*X + X*Y );
+	p.x += R*X;
+	p.y += R*Y;
+	if(R>0.01)throwOut();
+}
+
+const throwOut = (s = exportRoot.solar) =>{
+	s.solar1.gotoAndStop(1);
+	s.solar2.gotoAndStop(1);
+	s.eye.gotoAndStop(1);
+	game.throw = true;
+}
+
+const throwing = ( p = exportRoot.Fool ) =>{
+	p.x -= game.throwSpeed;
+	if(p.x<0)game.throw = !1;
 }
 
 const resizeCanvas = e =>{
